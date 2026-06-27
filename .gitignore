@@ -1,0 +1,29 @@
+# --- System & OS ---
+.DS_Store
+Thumbs.db
+*.swp
+
+# --- IDEs & Editors ---
+.vscode/
+.idea/
+.settings/
+*.sublime-workspace
+
+# --- Logs & Temp ---
+*.log
+tmp/
+dist/
+build/
+
+# --- Environment Files ---
+.env
+.env.*
+!.env.example
+
+# --- Dependencies ---
+node_modules/
+venv/
+.gradle/
+.mvn/
+target/
+build/
