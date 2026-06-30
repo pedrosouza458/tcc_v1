@@ -1,7 +1,5 @@
 package com.tcc.api.modules.users.application.usecases;
 
-import java.util.UUID;
-
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -29,14 +27,15 @@ public class CreateUserUseCase {
             throw new CpfAlreadyExistsException();
         }
 
-        String randomPassword = UUID.randomUUID().toString();
+        String hashedPassword = passwordEncoder.encode(input.password());
 
         var user = User.builder()
                 .name(input.name())
                 .email(input.email())
-                .password(passwordEncoder.encode(randomPassword))
+                .password(hashedPassword)
                 .cpf(input.cpf())
                 .phone(input.phone())
+                .profilePicture(input.profilePicture())
                 .role(role)
                 .institutionId(input.institutionId())
                 .build();

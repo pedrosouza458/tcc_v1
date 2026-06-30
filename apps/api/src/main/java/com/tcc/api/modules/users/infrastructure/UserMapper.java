@@ -25,6 +25,7 @@ public final class UserMapper {
             .id(entity.getId())
             .name(entity.getName())
             .email(entity.getEmail())
+            .password(entity.getPassword())
             .cpf(entity.getCpf())
             .phone(entity.getPhone())
             .profilePicture(entity.getProfilePicture())
