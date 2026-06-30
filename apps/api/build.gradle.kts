@@ -42,4 +42,5 @@ dependencies {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+	systemProperty("net.bytebuddy.experimental", "true")
 }
