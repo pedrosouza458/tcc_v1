@@ -8,6 +8,6 @@ public record CreateUserInput(
     String password,
     String cpf,
     String phone,
-    String profile_picture,
+    String profilePicture,
     UUID institutionId
 ){}
