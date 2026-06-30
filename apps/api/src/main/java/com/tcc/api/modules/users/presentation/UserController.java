@@ -27,6 +27,8 @@ import com.tcc.api.modules.users.presentation.dtos.UserResponseDTO;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
+import org.springdoc.core.annotations.ParameterObject;
+
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
@@ -37,7 +39,7 @@ public class UserController implements UserAPI {
     private final GetUserByIdUseCase getUserByIdUseCase;
 
     @Override
-    @PostMapping()
+      @PostMapping()
     public ResponseEntity<Map<String, String>> createUser(@Valid @RequestBody UserRequestDTO request) {
         createUserUseCase.execute(request.toInput(), UserRole.STUDENT);
         Map<String, String> response = Map.of("message", "User created successfully");
@@ -48,8 +50,8 @@ public class UserController implements UserAPI {
     @GetMapping
     public ResponseEntity<Page<UserResponseDTO>> listUsersByInstitution(
             @RequestParam("institutionId") UUID institutionId,   
-            UserFilterRequestDTO filters,
-            @PageableDefault(size = 20, sort = "name") Pageable pageable) {
+            @ParameterObject UserFilterRequestDTO filters,
+            @ParameterObject @PageableDefault(size = 20, sort = "name") Pageable pageable) {
         var usersPage = listUsersByInstitutionUseCase.execute(institutionId, filters.toInput(), pageable);
         Page<UserResponseDTO> response = usersPage.map(UserResponseDTO::new);
         return ResponseEntity.ok(response);
@@ -57,9 +59,8 @@ public class UserController implements UserAPI {
 
     @Override
     @GetMapping("/{id}")
-    public ResponseEntity<Map<String, UserResponseDTO>> getUserById(@PathVariable("id") UUID id) {
+    public ResponseEntity<UserResponseDTO> getUserById(@PathVariable("id") UUID id) {
         var user = getUserByIdUseCase.execute(id);
-        Map<String, UserResponseDTO> response = Map.of("user", new UserResponseDTO(user));
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        return ResponseEntity.ok(new UserResponseDTO(user));
     }
 }
