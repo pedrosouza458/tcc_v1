@@ -3,6 +3,9 @@ package com.tcc.api.modules.users.presentation.dtos;
 import java.util.UUID;
 
 import com.tcc.api.modules.users.application.dtos.CreateUserInput;
+import com.tcc.api.shared.infrastructure.validators.ValidCPF;
+import com.tcc.api.shared.infrastructure.validators.ValidPassword;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -24,10 +27,12 @@ public record UserRequestDTO(
         @Schema(example = "Senha@123")
         @NotBlank(message = "A senha é obrigatória") 
         @Size(min = 8, message = "A senha deve ter no mínimo 8 caractéres")
+        @ValidPassword
         String password,
 
         @Schema(example = "20661123057")
         @NotBlank(message = "O CPF é obrigatório") 
+        @ValidCPF
         String cpf,
 
         @Schema(example = "51912341234")
