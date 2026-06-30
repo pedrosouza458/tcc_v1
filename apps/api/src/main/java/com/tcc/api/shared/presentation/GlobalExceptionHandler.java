@@ -25,6 +25,11 @@ public class GlobalExceptionHandler {
         return buildResponse(HttpStatus.NOT_FOUND, ex.getMessage(), null);
     }
 
+    @ExceptionHandler(org.springframework.security.authentication.BadCredentialsException.class)
+    public ResponseEntity<Map<String, Object>> handleBadCredentials(org.springframework.security.authentication.BadCredentialsException ex) {
+        return buildResponse(HttpStatus.UNAUTHORIZED, ex.getMessage(), null);
+    }
+
     @ExceptionHandler({EmailAlreadyExistsException.class, CpfAlreadyExistsException.class})
     public ResponseEntity<Map<String, Object>> handleConflict(RuntimeException ex) {
         return buildResponse(HttpStatus.CONFLICT, ex.getMessage(), null);
